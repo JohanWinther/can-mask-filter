@@ -1,0 +1,21 @@
+.input
+{
+    font-family: 'Fira Code', monospace !important;
+}
+.title
+{
+    text-align: center;
+}
+.container
+{
+    margin-top: 1em;
+}
+.table
+{
+    width: 100%;
+    font-size: 0.8em;
+}
+td
+{
+    text-align: right !important;
+}

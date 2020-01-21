@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CAN bus filter and mask calculator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <section class="section">
+        <h1 class="title">
+            CAN bus filter and mask calculator
+        </h1>
+        <div class="container">
+            <div class="control">
+                <label class="radio" title="CAN 2.0A">
+                    <input type="radio" name="bit-length" checked data-value="8">
+                    11-bit
+                </label>
+                <label class="radio" title="CAN 2.0B">
+                    <input type="radio" name="bit-length" data-value="26">
+                    29-bit
+                </label>
+            </div>
+        </div>
+        <div class="container">
+            <input id="maskInput" class="input has-text-right has-text-grey is-size-1" type="text" pattern="0x[0-9a-fA-F]*" />
+            <input id="filterInput" class="input has-text-right has-text-grey is-size-1" type="text" pattern="0x[0-9a-fA-F]*" />
+        </div>
+        <div class="container">
+            <table class="table is-bordered is-narrow">
+                <thead></thead>
+                <tbody id="idTable">
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>
