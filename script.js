@@ -1,6 +1,11 @@
 var idTableEl, filterEl, maskEl;
 var currentCaret = 0;
 
+function createInputBoxes(id) {
+    //<input id="maskInput" class="input has-text-right has-text-grey is-size-1" type="text" pattern="0x[0-9a-fA-F]*" />
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
 
     idTableEl = document.getElementById("idTable");

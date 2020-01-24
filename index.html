@@ -4,18 +4,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CAN bus filter and mask calculator</title>
+    <title>CAN bus mask and filter calculator</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Fira+Code&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="components.js"></script>
     <script src="script.js"></script>
 </head>
 
 <body>
     <section class="section">
         <h1 class="title">
-            CAN bus filter and mask calculator
+            CAN bus mask and filter calculator
         </h1>
         <div class="container">
             <div class="control">
@@ -28,6 +29,10 @@
                     29-bit
                 </label>
             </div>
+        </div>
+        <div class="container">
+            <ol is="hex-input-list">
+            </ol>
         </div>
         <div class="container">
             <input id="maskInput" class="input has-text-right has-text-grey is-size-1" type="text" pattern="0x[0-9a-fA-F]*" />

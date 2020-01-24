@@ -19,3 +19,18 @@ td
 {
     text-align: right !important;
 }
+
+
+ol[is=hex-input-list] > li
+{
+    display: inline;
+}
+ol[is=hex-input-list] input[is=hex-input]
+{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    width: 1em;
+    height: 1em;
+}
