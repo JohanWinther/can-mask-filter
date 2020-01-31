@@ -19,31 +19,21 @@
             CAN bus mask and filter calculator
         </h1>
         <div class="container">
-            <div class="control">
+            <div id="bit-length-control" class="control">
                 <label class="radio" title="CAN 2.0A">
-                    <input type="radio" name="bit-length" checked data-value="8">
-                    11-bit
+                    <input type="radio" name="bit-length" checked data-value="11">11-bit
                 </label>
                 <label class="radio" title="CAN 2.0B">
-                    <input type="radio" name="bit-length" data-value="26">
-                    29-bit
+                    <input type="radio" name="bit-length" data-value="29">29-bit
                 </label>
             </div>
         </div>
         <div class="container">
-            <ol is="hex-input-list">
-            </ol>
+            Mask:<ol id="mask-input-list" is="hex-input-list" data-count="3"></ol>
+            Filter:<ol id="filter-input-list" is="hex-input-list" data-count="3"></ol>
         </div>
         <div class="container">
-            <input id="maskInput" class="input has-text-right has-text-grey is-size-1" type="text" pattern="0x[0-9a-fA-F]*" />
-            <input id="filterInput" class="input has-text-right has-text-grey is-size-1" type="text" pattern="0x[0-9a-fA-F]*" />
-        </div>
-        <div class="container">
-            <table class="table is-bordered is-narrow">
-                <thead></thead>
-                <tbody id="idTable">
-                </tbody>
-            </table>
+            <table class="table is-bordered is-narrow" is="id-table" data-count="512"></table>
         </div>
     </section>
 </body>
