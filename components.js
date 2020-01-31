@@ -54,16 +54,17 @@ class HexInputList extends HTMLOListElement {
 
         // Add inputs
         const count = parseInt(this.dataset.count);
-        for (let i = 0; i < count + 2; i++) {
+        for (let i = 0; i < count + 1; i++) {
             let inputElement = document.createElement("input");
             inputElement.type = "text";
             inputElement.maxLength = 2;
             inputElement.value = "0";
             inputElement.classList.add("input");
-            if (i < 2) {
-                inputElement.classList.add("is-static");
+            if (i < 1) {
                 inputElement.readOnly = true;
-                inputElement.value = "0x".substr(i, 1);
+                inputElement.classList.add("is-static");
+                inputElement.tabIndex = -1;
+                inputElement.value = "0×";
             }
             let liElement = document.createElement("li");
             liElement.appendChild(inputElement);

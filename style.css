@@ -52,7 +52,12 @@ ol[is=hex-input-list] .input
     caret-color: transparent;
 }
 
-ol[is=hex-input-list] .input:focus
+ol[is=hex-input-list] .input.is-static
+{
+    width: 1.5em;
+}
+
+ol[is=hex-input-list] .input:not(.is-static):focus
 {
     background-color: #00d1b2;
 }
