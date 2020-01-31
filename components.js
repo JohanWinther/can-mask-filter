@@ -9,7 +9,7 @@ class HexInputList extends HTMLOListElement {
             if (!e.data) {
                 e.target.value = "0";
                 let prev = e.target.parentElement.previousElementSibling;
-                if (prev && !prev.firstElementChild.disabled) prev.firstElementChild.focus();
+                if (prev && !prev.firstElementChild.readOnly) prev.firstElementChild.focus();
             } else {
                 let reData = e.data.match(/[0-9a-fA-F]/);
                 if (reData) {
@@ -37,7 +37,7 @@ class HexInputList extends HTMLOListElement {
                     if (next) next.firstElementChild.focus();
                 } else {
                     let prev = e.target.parentElement.previousElementSibling;
-                    if (prev && !prev.firstElementChild.disabled) prev.firstElementChild.focus();
+                    if (prev && !prev.firstElementChild.readOnly) prev.firstElementChild.focus();
                 }
             }
         });
@@ -47,7 +47,6 @@ class HexInputList extends HTMLOListElement {
     static get observedAttributes() { return ["data-count"]; }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        if (name !== "data-count") return;
 
         while (this.firstElementChild) {
             this.removeChild(this.firstElementChild);
@@ -62,7 +61,8 @@ class HexInputList extends HTMLOListElement {
             inputElement.value = "0";
             inputElement.classList.add("input");
             if (i < 2) {
-                inputElement.disabled = true;
+                inputElement.classList.add("is-static");
+                inputElement.readOnly = true;
                 inputElement.value = "0x".substr(i, 1);
             }
             let liElement = document.createElement("li");
@@ -85,30 +85,36 @@ class IdTable extends HTMLTableElement {
         this.appendChild(document.createElement("tbody"));
     }
 
-    static get observedAttributes() { return ["data-count"]; }
+    static get observedAttributes() { return ["data-min", "data-max", "data-count"]; }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        if (name !== "data-count") return;
+        const count = parseInt(this.dataset.count);
+        const wrap = count === 3 ? 32 : 16;
 
-        //let tableStr = "";
-        for (let i = 0; i < parseInt(newValue); i++) {
+        const min = parseInt(this.dataset.min);
+        const max = parseInt(this.dataset.max);
+        if (max - min > 10000) return;
+
+        while (this.firstElementChild.firstElementChild) {
+            this.firstElementChild.removeChild(this.firstElementChild.firstElementChild);
+        }
+
+        let k = 0;
+        for (let i = min; i < max; i++) {
             var tableRowEl, tableCellEl;
-            if (i % 32 == 0) {
+            if (k % wrap == 0) {
                 tableRowEl = document.createElement("tr");
-                //tableStr += "<tr>";
             }
             tableCellEl = document.createElement("td");
             tableCellEl.id = "can-id-"+i.toString();
-            tableCellEl.title = "0x"+i.toString(16).toUpperCase();
-            tableCellEl.textContent = i.toString();
+            tableCellEl.textContent = "0x"+i.toString(16).toUpperCase().padStart(count,'0');
+            tableCellEl.title = i.toString();
             tableRowEl.appendChild(tableCellEl);
-            //tableStr += `<td id="can-id-${i}" title="0x${i.toString(16).toUpperCase()}">${i}</td>`;
-            if (i % 32 == 32 - 1) {
+            if (k % wrap === wrap - 1 || k === max - min - 1) {
                 this.firstElementChild.appendChild(tableRowEl);
-                //tableStr += "</tr>";
             }
+            k++;
         }
-        //this.firstElementChild.innerHTML = tableStr;
         this.highlightIds();
     }
 

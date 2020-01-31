@@ -9,11 +9,21 @@
 .container
 {
     margin-top: 1em;
+    max-width: 90%;
 }
+
+.table-length-input 
+{
+    display: inline-block;
+    width: 8%;
+}
+
 .table
 {
-    width: 100%;
-    font-size: 0.8em;
+    font-family: 'Fira Code', monospace !important;
+    table-layout: fixed;
+    margin-top: 1em;
+    font-size: 0.75em;
 }
 td
 {
