@@ -74,3 +74,7 @@ ol[is=hex-input-list] .input:not(.is-static):focus
 {
     background-color: #00d1b2;
 }
+
+.footer {
+    background-color: unset;
+}
