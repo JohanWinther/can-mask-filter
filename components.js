@@ -9,7 +9,9 @@ class HexInputList extends HTMLOListElement {
             if (!e.data) {
                 e.target.value = "0";
                 let prev = e.target.parentElement.previousElementSibling;
-                if (prev && !prev.firstElementChild.readOnly) prev.firstElementChild.focus();
+                if (prev && !prev.firstElementChild.readOnly) {
+                    HexInputList.setInputFocus(prev.firstElementChild);
+                }
             } else {
                 let reData = e.data.match(/[0-9a-fA-F]/);
                 if (reData) {
@@ -23,9 +25,18 @@ class HexInputList extends HTMLOListElement {
                     }
                 }
                 let next = e.target.parentElement.nextElementSibling;
-                if (next) next.firstElementChild.focus();
+                if (next) {
+                    HexInputList.setInputFocus(next.firstElementChild);
+                }
             }
             document.querySelectorAll("[is=id-table]").forEach(el => el.highlightIds());
+        });
+
+        // Set caret position on click
+        this.addEventListener("click", (e) => {
+            if (e.target.tagName == "INPUT") {
+                HexInputList.setInputFocus(e.target);
+            }
         });
 
         // Move caret event
@@ -34,10 +45,14 @@ class HexInputList extends HTMLOListElement {
                 let directionIsRight = (e.keyCode - 37)/2;
                 if (directionIsRight) {
                     let next = e.target.parentElement.nextElementSibling;
-                    if (next) next.firstElementChild.focus();
+                    if (next) {
+                        HexInputList.setInputFocus(next.firstElementChild);
+                    }
                 } else {
                     let prev = e.target.parentElement.previousElementSibling;
-                    if (prev && !prev.firstElementChild.readOnly) prev.firstElementChild.focus();
+                    if (prev && !prev.firstElementChild.readOnly) {
+                        HexInputList.setInputFocus(prev.firstElementChild);
+                    }
                 }
             }
         });
@@ -71,6 +86,11 @@ class HexInputList extends HTMLOListElement {
             this.appendChild(liElement);
         }
         document.querySelectorAll("[is=id-table]").forEach(el => el.highlightIds());
+    }
+
+    static setInputFocus(el) {
+        el.focus();
+        el.setSelectionRange(1, 1);
     }
 
     getHexValue() {
