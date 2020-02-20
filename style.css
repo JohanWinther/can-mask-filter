@@ -25,13 +25,26 @@
     margin-top: 1em;
     font-size: 0.75em;
 }
-td
+
+th
 {
     text-align: right !important;
 }
 
+tr > th:first-child {
+
+    width: 6em;
+
+}
+
+td
+{
+    text-align: center !important;
+}
+
 ol[is=hex-input-list]
 {
+    display: inline-block;
     margin-bottom: 1em;
 }
 

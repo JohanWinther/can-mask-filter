@@ -27,6 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Event listeners for copy buttons
+    document.querySelectorAll(".copy-button").forEach(button => {
+        button.addEventListener("click", (e) => {
+            let input = document.createElement('input');
+            input.setAttribute('value', "0x"+[...e.target.previousElementSibling.children].slice(1).map(i => i.firstElementChild.value).join(""));
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+        });
+    });
+
     // Trigger range change event if refreshed
     [...document.getElementsByClassName('table-length-input')].forEach(el => el.dispatchEvent(new Event("change", { bubbles: true })));
 
