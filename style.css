@@ -75,6 +75,21 @@ ol[is=hex-input-list] .input:not(.is-static):focus
     background-color: #00d1b2;
 }
 
-.footer {
+.binary-rep
+{
+    position: absolute;
+    font-family: 'Fira Code', monospace !important;
+}
+
+.binary-rep > span
+{
+    display: inline-block;
+    text-align: center;
+    width: 0.5rem;
+    font-size: 0.75em;
+}
+
+.footer
+{
     background-color: unset;
 }

@@ -29,6 +29,14 @@ class HexInputList extends HTMLOListElement {
                     HexInputList.setInputFocus(next.firstElementChild);
                 }
             }
+            let maskLiList = [...document.getElementById("mask-input-list").children].slice(1);
+            let filterLiList = [...document.getElementById("filter-input-list").children].slice(1);
+            
+            for (let li of maskLiList.map((el, i) => [el, filterLiList[i]])) {
+                this.setBinaryBoxValue(li[0].children[1], li[0].children[0].value);
+                let faded = parseInt(li[0].children[0].value, 16).toString(2).padStart(4, "0").split("").map((b) => parseInt(b));
+                this.setBinaryBoxValue(li[1].children[1], li[1].children[0].value, faded);
+            }
             document.querySelectorAll("[is=id-table]").forEach(el => el.highlightIds());
         });
 
@@ -80,12 +88,68 @@ class HexInputList extends HTMLOListElement {
                 inputElement.classList.add("is-static");
                 inputElement.tabIndex = -1;
                 inputElement.value = "0×";
+            } else {
+                /* inputElement.addEventListener("mouseover", () => {
+                    let index = [...inputElement.parentElement.parentElement.children].indexOf(inputElement.parentElement) - 1;
+                    
+                    let maskLi = document.getElementById("mask-input-list").children[index + 1];
+                    this.maskBinary = HexInputList.createBinaryBox(index);
+                    HexInputList.setBinaryBoxValue(this.maskBinary, maskLi.children[0].value);
+                    maskLi.appendChild(this.maskBinary);
+
+                    let filterLi = document.getElementById("filter-input-list").children[index + 1];
+                    this.filterBinary = HexInputList.createBinaryBox(index);
+                    let faded = parseInt(maskLi.children[0].value, 16).toString(2).padStart(4, "0").split("").map((b) => parseInt(b));
+                    HexInputList.setBinaryBoxValue(this.filterBinary, filterLi.children[0].value, faded);
+                    filterLi.appendChild(this.filterBinary);
+                //}); */
+                //inputElement.addEventListener("mouseout", () => {
+                //    this.maskBinary.remove();
+                //    this.filterBinary.remove();
+                //});
             }
             let liElement = document.createElement("li");
             liElement.appendChild(inputElement);
+            if (i > 0) {
+                let binBox = this.createBinaryBox(i - 1);
+                this.setBinaryBoxValue(binBox, inputElement.value);
+                liElement.appendChild(binBox);
+            }
             this.appendChild(liElement);
         }
         document.querySelectorAll("[is=id-table]").forEach(el => el.highlightIds());
+    }
+
+    createBinaryBox(index) {
+        let box = document.createElement("div");
+        box.classList.add("binary-rep");
+        box.style.left = `${3 + (index * 2)}em`;
+        return box
+    }
+
+    setBinaryBoxValue(el, hexVal, active = [1, 1, 1, 1]) {
+        let list = parseInt(hexVal, 16).toString(2).padStart(4, "0").split("").map((n, i) => {
+            return {
+                hexBit: n,
+                activeBit: active[i],
+                index: i
+            }
+        });
+        for (let li of list) {
+            let span;
+            if (el.children.length === 4) {
+                span = el.children[li.index];
+            } else {
+                span = document.createElement("span");
+                el.appendChild(span);
+            }
+            span.innerHTML = li.hexBit;
+            if (li.activeBit === 1) {
+                span.style.opacity = null;
+            } else {
+                span.style.opacity = "0.5";
+            }
+        }
     }
 
     static setInputFocus(el) {

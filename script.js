@@ -26,6 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
             el.dataset.max = e.target.value;
         });
     });
+    
+    // Trigger range change event if refreshed
+    [...document.getElementsByClassName('table-length-input')].forEach(el => el.dispatchEvent(new Event("change", { bubbles: true })));
 
     // Event listeners for copy buttons
     document.querySelectorAll(".copy-button").forEach(button => {
@@ -39,8 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Trigger range change event if refreshed
-    [...document.getElementsByClassName('table-length-input')].forEach(el => el.dispatchEvent(new Event("change", { bubbles: true })));
 
     // Set focus to first input
     document.getElementById("mask-input-list").children[1].firstElementChild.focus();
