@@ -46,4 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Set focus to first input
     document.getElementById("mask-input-list").children[1].firstElementChild.focus();
 
+    // Trigger input event
+    let inputEvent = new InputEvent("input", {bubbles: true});
+    document.getElementById("mask-input-list").children[1].firstElementChild.dispatchEvent(inputEvent);
+
 });

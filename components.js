@@ -88,25 +88,6 @@ class HexInputList extends HTMLOListElement {
                 inputElement.classList.add("is-static");
                 inputElement.tabIndex = -1;
                 inputElement.value = "0×";
-            } else {
-                /* inputElement.addEventListener("mouseover", () => {
-                    let index = [...inputElement.parentElement.parentElement.children].indexOf(inputElement.parentElement) - 1;
-                    
-                    let maskLi = document.getElementById("mask-input-list").children[index + 1];
-                    this.maskBinary = HexInputList.createBinaryBox(index);
-                    HexInputList.setBinaryBoxValue(this.maskBinary, maskLi.children[0].value);
-                    maskLi.appendChild(this.maskBinary);
-
-                    let filterLi = document.getElementById("filter-input-list").children[index + 1];
-                    this.filterBinary = HexInputList.createBinaryBox(index);
-                    let faded = parseInt(maskLi.children[0].value, 16).toString(2).padStart(4, "0").split("").map((b) => parseInt(b));
-                    HexInputList.setBinaryBoxValue(this.filterBinary, filterLi.children[0].value, faded);
-                    filterLi.appendChild(this.filterBinary);
-                //}); */
-                //inputElement.addEventListener("mouseout", () => {
-                //    this.maskBinary.remove();
-                //    this.filterBinary.remove();
-                //});
             }
             let liElement = document.createElement("li");
             liElement.appendChild(inputElement);
