@@ -39,10 +39,12 @@
             <button class="button is-small copy-button">Copy</button>
         </div>
         <div class="container">
-            <p>Range:</p>
-            <input id="table-min" type="number" class="table-length-input input has-text-right" min="0" value="0" />
-            <input id="table-max" type="number" class="table-length-input input has-text-right" min="0" value="128" />
-            <table class="table is-narrow is-fullwidth" is="id-table" data-count="3" data-min="0" data-max="128"></table>
+            <p>Offset and length:</p>
+            <input id="table-offset" type="number" class="table-length-input input has-text-right" min="0" value="0" step="64" /><br>
+            <input id="table-length" type="number" class="table-length-input input has-text-right" min="0" value="256" step="64" />
+            <div class="table-container">
+                <table class="table is-narrow is-bordered" is="id-table" data-count="3" data-offset="0" data-length="256"></table>
+            </div>
         </div>
     </section>
     <footer class="footer">

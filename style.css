@@ -9,13 +9,14 @@
 .container
 {
     margin-top: 1em;
-    max-width: 90%;
+    max-width: 92%;
 }
 
 .table-length-input 
 {
     display: inline-block;
-    width: 8%;
+    width: 100%;
+    max-width: 10em;
 }
 
 .table
@@ -26,15 +27,14 @@
     font-size: 0.75em;
 }
 
-th
-{
+tr > th:first-child {
     text-align: right !important;
 }
 
-tr > th:first-child {
-
-    width: 6em;
-
+tr > th:not(:first-child) {
+    text-align: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 td

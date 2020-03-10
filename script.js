@@ -11,19 +11,19 @@ document.addEventListener("DOMContentLoaded", () => {
         if (radio.checked) radio.dispatchEvent(new Event("change", { bubbles: true }));
     });
 
-    // Set range-min upon change
-    document.getElementById('table-min').addEventListener("change", e => {
+    // Set range-offset upon change
+    document.getElementById('table-offset').addEventListener("change", e => {
         if (e.target.value == "" || e.target.valueAsNumber < 0) e.target.value = "0";
         document.querySelectorAll('[is=id-table]').forEach(el => {
-            el.dataset.min = e.target.value;
+            el.dataset.offset = e.target.value;
         });
     });
 
-    // Set range-max upon change
-    document.getElementById('table-max').addEventListener("change", e => {
+    // Set range-length upon change
+    document.getElementById('table-length').addEventListener("change", e => {
         if (e.target.value == "" || e.target.valueAsNumber < 0) e.target.value = "0";
         document.querySelectorAll('[is=id-table]').forEach(el => {
-            el.dataset.max = e.target.value;
+            el.dataset.length = e.target.value;
         });
     });
     
