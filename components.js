@@ -16,6 +16,10 @@ class HexInputList extends HTMLOListElement {
                 let reData = e.data.match(/[0-9a-fA-F]/);
                 if (reData) {
                     e.target.value = reData[0].toUpperCase();
+                    let next = e.target.parentElement.nextElementSibling;
+                    if (next) {
+                        HexInputList.setInputFocus(next.firstElementChild);
+                    }
                 } else {
                     let prevVal = e.target.value.match(/[0-9a-fA-F]/);
                     if (prevVal) {
@@ -23,10 +27,6 @@ class HexInputList extends HTMLOListElement {
                     } else {
                         e.target.value = "0";
                     }
-                }
-                let next = e.target.parentElement.nextElementSibling;
-                if (next) {
-                    HexInputList.setInputFocus(next.firstElementChild);
                 }
             }
             let maskLiList = [...document.getElementById("mask-input-list").children].slice(1);
@@ -150,16 +150,17 @@ class IdTable extends HTMLTableElement {
         super();
     }
 
-    static get observedAttributes() { return ["data-min", "data-max", "data-count", "data-hex"]; }
+    static get observedAttributes() { return ["data-offset", "data-length", "data-count", "data-hex"]; }
 
     attributeChangedCallback(name, oldValue, newValue) {
         const count = parseInt(this.dataset.count);
         const wrap = 64;
         const radix = this.dataset.decimal ? 10 : 16;
 
-        const min = wrap*Math.floor(parseInt(this.dataset.min)/wrap);
-        const max = parseInt(this.dataset.max);
-        if (max - min > 10000) return;
+        const offset = wrap * Math.floor(parseInt(this.dataset.offset) / wrap);
+        document.getElementById('table-offset').value = offset;
+        const length = parseInt(this.dataset.length);
+        if (length > 10000) return;
 
         while (this.firstElementChild) {
             this.removeChild(this.firstElementChild);
@@ -181,22 +182,22 @@ class IdTable extends HTMLTableElement {
         
         const tableBodyEl = document.createElement("tbody");
         this.appendChild(tableBodyEl);
-        let k = min;
+        let k = offset;
         var tableRowEl, tableCellEl, tableRowHeadEl;
-        for (let i = min; i < max; i++) {
+        for (let i = 0; i < length; i++) {
             if (k % wrap == 0) {
                 tableRowEl = document.createElement("tr");
                 tableBodyEl.appendChild(tableRowEl);
                 tableRowHeadEl = document.createElement("th");
                 tableRowEl.appendChild(tableRowHeadEl);
-                tableRowHeadEl.textContent = k.toString(radix).toUpperCase();
+                tableRowHeadEl.innerHTML = k.toString(radix).toUpperCase().padStart(count, "x").split("x").join("&nbsp;");
             }
             tableCellEl = document.createElement("td");
             tableRowEl.appendChild(tableCellEl);
-            tableCellEl.id = "can-id-"+i.toString();
+            tableCellEl.id = "can-id-"+k.toString();
             tableCellEl.innerHTML = "&#183;"
-            tableCellEl.title = "0x" + i.toString(radix).toUpperCase().padStart(count, '0');
-            tableCellEl.title += "\n" + i.toString();
+            tableCellEl.title = "0x" + k.toString(radix).toUpperCase().padStart(count, '0');
+            tableCellEl.title += "\n" + k.toString();
             k++;
         }
         this.highlightIds();
